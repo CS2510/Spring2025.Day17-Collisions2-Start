@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Title displayed in the browser tab -->
+  <title>Guards Game</title>
+
+  <!-- CSS for our game -->
+  <style>
+    * {
+      /* Remove any margin */
+      margin: 0px;
+
+      /* Never show scroll bars */
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- The canvas we will draw in -->
+  <canvas id="canv"></canvas>
+
+  <!-- Engine classes -->
+  <script src="./engine/Engine.js"></script>
+  <script src="./engine/GameObject.js"></script>
+  <script src="./engine/Time.js"></script>
+  <script src="./engine/Collisions.js"></script>
+  <script src="./engine/Input.js"></script>
+  <script src="./engine/Scene.js"></script>
+  <script src="./engine/Component.js"></script>
+  <script src="./engine/Globals.js"></script>
+
+  <!-- Engine components -->
+  <script src="./engine/components/Transform.js"></script>
+  <script src="./engine/components/Circle.js"></script>
+  <script src="./engine/components/KeyboardMovement.js"></script>
+  <script src="./engine/components/MouseMovement.js"></script>
+  <script src="./engine/components/TouchMovement.js"></script>
+  <script src="./engine/components/TouchDeltaMovement.js"></script>
+  <script src="./engine/components/Text.js"></script>
+  <script src="./engine/components/Rectangle.js"></script>
+  <script src="./engine/components/Line.js"></script>
+
+
+  <!-- Components -->
+  <script src="./game_guards/components/DeathSceneController.js"></script>
+  <script src="./game_guards/components/GuardMovement.js"></script>
+  <script src="./game_guards/components/MainSceneController.js"></script>
+  <script src="./game_guards/components/PlayerConstraints.js"></script>
+  <script src="./game_guards/components/ScoreUpdater.js"></script>
+  <script src="./game_guards/components/WinSceneController.js"></script>
+
+  <!-- Game objects -->
+  <script src="./game_guards/gameObjects/DeathController.js"></script>
+  <script src="./game_guards/gameObjects/DeathTextGameObject.js"></script>
+  <script src="./game_guards/gameObjects/GuardGameObject.js"></script>
+  <script src="./game_guards/gameObjects/LevelNumberGameObject.js"></script>
+  <script src="./game_guards/gameObjects/PlayerGameObject.js"></script>
+  <script src="./game_guards/gameObjects/ScoreGameObject.js"></script>
+  <script src="./game_guards/gameObjects/WinController.js"></script>
+  <script src="./game_guards/gameObjects/WinTextGameObject.js"></script>
+
+  <!-- Scenes -->
+  <script src="./game_guards/scenes/Level_01_Scene.js"></script>
+  <script src="./game_guards/scenes/Level_02_Scene.js"></script>
+  <script src="./game_guards//scenes/DeathScene.js"></script>
+  <script src="./game_guards//scenes/WinScene.js"></script>
+
+  <script>
+    // Engine-specific state variables
+    let canvas // A reference to the canvas element
+    let ctx   // A reference to the 2d drawing context in the canvas drawing element
+
+    Globals.score = 0
+
+    Engine.nextScene = new Level_01_Scene() //Assign the start scene (game-specific code)
+    Engine.start()
+    
+
+  </script>
+</body>
+
+</html>
