@@ -213,12 +213,11 @@ class Collisions {
    * @returns The projection of a point on an infinite line
    */
   static findClosestPointOnInfiniteLine(point, point1, point2) {
-    let pointMinusOne = point.minus(point1)
-    let tangent = point2.minus(point1)
-    let tangentNormalized = tangent.normalized()
-    let pointOnInfiniteLine = point1.add(tangentNormalized.scaled(tangentNormalized.dot(pointMinusOne)))
-
-    return pointOnInfiniteLine
+    //Subtract the point and a point on the line
+    //Get the tangent of the line
+    //Get the normalized tangent
+    //Find the point on the infinite line
+    
   }
 
   /**
@@ -229,16 +228,13 @@ class Collisions {
    * @returns The projection of a point on a line segment, clamped to the two end points
    */
   static findClosestPointOnLineSegment(point, point1, point2) {
-    let pointOnLine = this.findClosestPointOnInfiniteLine(point, point1, point2)
-    let tangent = point2.minus(point1)
-    let tangentNormalized = tangent.normalized()
-    let lengthOfLine = point2.minus(point1).length()
-    let toPoint = pointOnLine.minus(point1)
-    let toPointLength = tangentNormalized.dot(toPoint)
-
-    if (toPointLength < 0) return point1
-    if (toPointLength > lengthOfLine) return point2
-    return pointOnLine
+    //Get the nearest point on the infinite line
+    //Get the tangent of the line
+    //Get the normalized tangent
+    //Get the length of the line
+    //Subtract the nearest point from a point on the line
+    //Take the dot product with the normalized tangent
+    //Compare the length to 0 and the length of the line
   }
 
   /**
@@ -248,11 +244,9 @@ class Collisions {
    * @returns The ABC of Ax+By+C=0 of a line defined by two points
    */
   static findLineABC(point1, point2) {
-    let A = point2.y - point1.y
-    let B = -(point2.x - point1.x)
-    let C = -new Vector2(A, B).dot(point1)
-
-    return [A, B, C]
+    //Subtract the ys to get A
+    //Negate the differences of the xs to get B
+    //Take the dot product of AB with a point on the line
   }
 
   //
@@ -269,7 +263,7 @@ class Collisions {
    * @returns True if the point is in the rectangle. False otherwise
    */
   static isPointInRectangle(point, left, right, top, bottom) {
-    return point.x > left && point.x < right && point.y > top && point.y < bottom
+    //Check if the point is within the bounds of the rectangle
   }
 
   /**
@@ -280,13 +274,12 @@ class Collisions {
    * @returns True if the point on an infinite line is also within the line segment. False otherwise
    */
   static isPointOnInfiniteLineWithinLineSegment(point, point1, point2) {
-    let lengthOfLine = point2.minus(point1).length()
-    let tangent = point2.minus(point1)
-    let tangentNormalized = tangent.normalized()
-    let toPoint = point.minus(point1)
-    let toPointLength = tangentNormalized.dot(toPoint)
-
-    return toPointLength >= 0 && toPointLength <= lengthOfLine
+    //Get the length of the line
+    //Get the tangent
+    //Get the normalized tangent
+    //Subtract the point from a point on the line
+    //Take the dot product with the tangent to get the length
+    //Compare the length to 0 and the line length
   }
 
   /**
@@ -298,18 +291,11 @@ class Collisions {
    * @returns True if two line segments intersect. False otherwise.
    */
   static areLineSegmentsIntersecting(point1A, point2A, point1B, point2B) {
-    let [A1, B1, C1] = Collisions.findLineABC(point1A, point2A)
-    let [A2, B2, C2] = Collisions.findLineABC(point1B, point2B)
-
-    let x = B1 * C2 - B2 * C1
-    let y = C1 * A2 - C2 * A1
-    let z = A1 * B2 - A2 * B1
-
-    if (z == 0) return false //parallel lines
-
-    let collision = new Vector2(x / z, y / z)
-
-    return this.isPointOnInfiniteLineWithinLineSegment(collision, point1A, point2A) && this.isPointOnInfiniteLineWithinLineSegment(collision, point1B, point2B)
+    //Get ABC of both lines
+    //Take the cross product of the ABCs
+    //Check for parallel lines
+    //Normalize the homogenous coordinate
+    //Check of the point is on both line segments
   }
 
   /**
@@ -321,7 +307,6 @@ class Collisions {
    * @returns True if the circle intersects a line segment. False otherwise.
    */
   static isCircleIntersectingLineSegment(circleCenter, radius, point1, point2) {
-    if (circleCenter.minus(this.findClosestPointOnLineSegment(circleCenter, point1, point2)).length() < radius) return true
-    return false
+    //See if the line from the circle center to the center projected on the line segment has a length less than the radius
   }
 }
